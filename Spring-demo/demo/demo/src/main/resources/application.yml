@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: JUG Spring Demo
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/mydb  # MySQL connection URL
+    username: myuser                      # MySQL user
+    password: mypassword                  # MySQL user's password
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect  # MySQL dialect for Hibernate
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
