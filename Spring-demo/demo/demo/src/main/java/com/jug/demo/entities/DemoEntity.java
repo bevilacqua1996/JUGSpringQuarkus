@@ -13,6 +13,14 @@ public class DemoEntity {
     private Long id;
     private String name;
 
+    public DemoEntity(long l, String s) {
+        this.id = l;
+        this.name = s;
+    }
+
+    public DemoEntity() {
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;
