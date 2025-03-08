@@ -11,7 +11,7 @@
 	<groupId>com.jug</groupId>
 	<artifactId>Spring-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>JUG Demo</name>
+	<name>JUG Spring Demo</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
