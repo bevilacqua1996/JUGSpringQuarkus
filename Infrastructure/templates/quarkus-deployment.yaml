@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkus-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkus-app
+  template:
+    metadata:
+      labels:
+        app: quarkus-app
+    spec:
+      containers:
+        - name: quarkus-app
+          image: my-quarkus-app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          env:
+            - name: QUARKUS_DATASOURCE_JDBC_URL
+              value: jdbc:mysql://mysql:3306/mydb # Updated to MySQL connection URL
+            - name: QUARKUS_DATASOURCE_USERNAME
+              value: myuser                # Updated to MySQL username
+            - name: QUARKUS_DATASOURCE_PASSWORD
+              value: mypassword            # Updated to MySQL password
+            - name: QUARKUS_DATASOURCE_DB_KIND
+              value: mysql                 # Set database type to MySQL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkus-service
+spec:
+  selector:
+    app: quarkus-app
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: ClusterIP
