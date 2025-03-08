@@ -1,7 +1,7 @@
-package com.jug.demo.controllers;
+package com.jug.demo.demo.controllers;
 
-import com.jug.demo.entities.DemoEntity;
-import com.jug.demo.repositories.DemoRepository;
+import com.jug.demo.demo.entities.DemoEntity;
+import com.jug.demo.demo.repositories.DemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -2,26 +2,20 @@ package com.jug.demo.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class DemoEntity {
+public class DemoEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
+
     private String name;
 
-    public DemoEntity(long l, String s) {
-        this.id = l;
-        this.name = s;
-    }
-
-    public DemoEntity() {
-    }
-
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
