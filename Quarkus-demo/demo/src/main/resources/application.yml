@@ -1,6 +1,15 @@
 quarkus:
   application:
     name: JUG Spring Demo
+  micrometer:
+    export:
+      prometheus:
+        enabled: true
+  smallrye-metrics:
+    path: /metrics
+  smallrye-health:
+    root-path: /health
+
 
   datasource:
     db-kind: mysql                     # Database type
