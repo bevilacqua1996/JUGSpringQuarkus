@@ -1,6 +1,6 @@
 quarkus:
   application:
-    name: JUG Spring Demo
+    name: JUG Quarkus Demo
   micrometer:
     export:
       prometheus:

@@ -9,10 +9,10 @@ data:
       scrape_interval: 5s  # Coleta métricas a cada 5 segundos
 
     scrape_configs:
-      - job_name: "spring-boot-app"
+      - job_name: "spring-app"
         metrics_path: "/actuator/prometheus"
         static_configs:
-          - targets: ["spring-boot-service.default.svc.cluster.local:8080"]
+          - targets: ["spring-service.default.svc.cluster.local:8080"]
 
       - job_name: "quarkus-app"
         metrics_path: "/q/metrics"
