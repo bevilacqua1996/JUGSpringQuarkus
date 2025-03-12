@@ -3,9 +3,12 @@ package com.jug.demo.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
+@Table(name = "demo_entity_quarkus")
 public class DemoEntity implements Serializable {
 
     @Id

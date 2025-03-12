@@ -1,11 +1,9 @@
 package com.jug.demo.demo.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "demo_entity_spring")
 public class DemoEntity {
 
     @Id

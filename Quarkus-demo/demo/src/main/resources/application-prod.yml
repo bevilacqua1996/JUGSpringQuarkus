@@ -16,11 +16,9 @@ quarkus:
     username: myuser                   # MySQL user
     password: mypassword               # MySQL user's password
     jdbc:
-      url: jdbc:mysql://localhost:3306/mydb  # MySQL connection URL
+      url: jdbc:mysql://mysql:3306/mydb  # MySQL connection URL
     reactive: false                    # Ensures non-reactive classic JDBC connections
     driver: com.mysql.cj.jdbc.Driver   # MySQL JDBC driver
-    devservices:
-      port: 55406
 
   hibernate-orm:
     dialect: org.hibernate.dialect.MySQLDialect  # MySQL dialect for Hibernate

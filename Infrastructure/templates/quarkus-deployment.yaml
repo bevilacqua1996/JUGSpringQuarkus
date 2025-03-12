@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: quarkus-app
-          image: my-quarkus-app:latest
+          image: my-quarkus-app:1.1
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
@@ -27,6 +27,8 @@ spec:
               value: mypassword            # Updated to MySQL password
             - name: QUARKUS_DATASOURCE_DB_KIND
               value: mysql                 # Set database type to MySQL
+            - name: QUARKUS_HIBERNATE_ORM_DATABASE_GENERATION_UPDATE
+              value: update
 ---
 apiVersion: v1
 kind: Service
