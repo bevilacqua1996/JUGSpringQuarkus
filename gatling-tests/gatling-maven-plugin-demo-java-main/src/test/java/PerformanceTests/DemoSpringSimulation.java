@@ -8,9 +8,9 @@ import static io.gatling.javaapi.http.HttpDsl.status;
 
 public class DemoSpringSimulation extends Simulation {
 
-    private static final String BASE_URL = "http://spring.local/api/demo";
+    private static final String BASE_URL = "http://localhost:8081/api/demo";
 
-    // Scenario: Simulação de requisições para a API
+    // Scenario: API requirements
     private ScenarioBuilder scn = scenario("Spring API Test")
             .exec(http("Create Entity")
                     .post(BASE_URL)
@@ -42,10 +42,14 @@ public class DemoSpringSimulation extends Simulation {
                     .check(status().is(204))
             );
 
-    // Configuração da simulação
+    // Real behaviour with ramp up and ramp down
     {
         setUp(
-                scn.injectOpen(rampUsers(10).during(10)) // 10 usuários em 10 segundos
-        ).protocols(http.baseUrl("http://spring.local"));
+                scn.injectOpen(
+                        rampUsers(5).during(30),  // Increases the load
+                        constantUsersPerSec(10).during(60),  // Keep it stable
+                        rampUsersPerSec(10).to(2).during(30)  // Decreases the load
+                )
+        ).protocols(http.baseUrl("http://localhost:8080"));
     }
 }

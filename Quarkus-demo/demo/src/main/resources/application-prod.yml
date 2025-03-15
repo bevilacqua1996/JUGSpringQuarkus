@@ -2,33 +2,26 @@ quarkus:
   application:
     name: JUG Quarkus Demo
   micrometer:
+    binder:
+      system: true
     export:
       prometheus:
+        path: /metrics
         enabled: true
-  smallrye-metrics:
-    path: /metrics
-  smallrye-health:
-    root-path: /health
-
-
   datasource:
     db-kind: mysql                     # Database type
     username: myuser                   # MySQL user
     password: mypassword               # MySQL user's password
     jdbc:
-      url: jdbc:mysql://mysql:3306/mydb  # MySQL connection URL
-    reactive: false                    # Ensures non-reactive classic JDBC connections
-    driver: com.mysql.cj.jdbc.Driver   # MySQL JDBC driver
-
+      url: jdbc:mysql://mysql:3306/mydb
+      max-size: 50           # Máximo de conexões no pool (equivalente a Hikari `maximum-pool-size`)
+      min-size: 5            # Conexões mínimas ativas (equivalente a Hikari `minimum-idle`)
+      max-lifetime: 30M      # Tempo máximo de vida da conexão (Hikari `max-lifetime`)
+      acquisition-timeout: 5s  # Tempo para esperar uma conexão (Hikari `connection-timeout`)
+      pooling-enabled: true
   hibernate-orm:
     dialect: org.hibernate.dialect.MySQLDialect  # MySQL dialect for Hibernate
     database:
       generation: update               # Matches ddl-auto=update in Spring
     log:
       sql: true                        # Show SQL statements in the logs
-    format-sql: true                   # Format the logged SQL statements
-    use-sql-comments: true             # Use SQL comments in Hibernate
-
-  datasource.jdbc:
-    max-size: 5                        # Matches hikari.maximum-pool-size
-    min-size: 2                        # Matches hikari.minimum-idle

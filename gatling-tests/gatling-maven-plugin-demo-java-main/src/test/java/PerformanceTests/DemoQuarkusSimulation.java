@@ -9,9 +9,9 @@ import static io.gatling.javaapi.http.HttpDsl.status;
 
 public class DemoQuarkusSimulation extends Simulation {
 
-    private static final String BASE_URL = "http://quarkus.local/demo";
+    private static final String BASE_URL = "http://localhost:8080/demo";
 
-    // Scenario: Simulação de requisições para a API
+    // Scenario: API requirements
     private ScenarioBuilder scn = scenario("Quarkus API Test")
             .exec(http("Create Entity")
                     .post(BASE_URL)
@@ -43,10 +43,14 @@ public class DemoQuarkusSimulation extends Simulation {
                     .check(status().is(204))
             );
 
-    // Configuração da simulação
+    // Real behaviour with ramp up and ramp down
     {
         setUp(
-                scn.injectOpen(rampUsers(10).during(10)) // 10 usuários em 10 segundos
-        ).protocols(http.baseUrl("http://quarkus.local"));
+                scn.injectOpen(
+                        rampUsers(5).during(30),  // Increases the load
+                        constantUsersPerSec(10).during(60),  // Keep it stable
+                        rampUsersPerSec(10).to(2).during(30)  // Decreases the load
+                )
+        ).protocols(http.baseUrl("http://localhost:8080"));
     }
 }

@@ -1,15 +1,21 @@
+server:
+  port: 8081
 spring:
   application:
     name: JUG Spring Demo
 
   datasource:
-    url: jdbc:mysql://localhost:3306/mydb  # MySQL connection URL
-    username: myuser                      # MySQL user
-    password: mypassword                  # MySQL user's password
-    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC driver
-    hikari:
-      maximum-pool-size: 5
-      minimum-idle: 2
+  url: jdbc:mysql://localhost:3306/mydb
+  username: myuser
+  password: mypassword
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  hikari:
+    maximum-pool-size: 50      # Aumentado para suportar mais conexões concorrentes
+    minimum-idle: 5            # Mantém algumas conexões sempre abertas
+    idle-timeout: 30000        # Fecha conexões ociosas após 30s
+    max-lifetime: 1800000      # Tempo máximo de vida de uma conexão (30min)
+    connection-timeout: 5000   # Timeout para pegar uma conexão (5s)
+
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect  # MySQL dialect for Hibernate
