@@ -52,7 +52,7 @@ jobs:
           cd Quarkus-demo/demo/
           mkdir target
           cp -r ../../native-binary ./target/
-          docker build -t my-docker-repo/my-quarkus-native-app:latest -f Quarkus-demo/demo/src/main/docker/Dockerfile.native .
+          docker build -t my-docker-repo/my-quarkus-native-app:latest -f src/main/docker/Dockerfile.native .
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
