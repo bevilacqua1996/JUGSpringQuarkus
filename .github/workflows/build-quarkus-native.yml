@@ -45,8 +45,9 @@ jobs:
       - name: Build Docker Image using a better base image
         run: |
           # Build the Docker image using a more suitable base image (e.g., Alpine or distroless)
-          mkdir Spring-demo/demo/demo/target
-          cp ./native-binary Spring-demo/demo/demo/target/
+          cd Quarkus-demo/demo/
+          mkdir target
+          cp ./native-binary ./target/
           docker build -t my-docker-repo/my-quarkus-native-app:latest -f Spring-demo/demo/demo/src/main/docker/Dockerfile.native .
 
       - name: Login to Docker Hub
