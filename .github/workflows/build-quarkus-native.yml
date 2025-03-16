@@ -16,11 +16,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Verify GraalVM
-        run: |
-          java -version
-          gu install native-image  # Should work inside this container
-
       - name: Increase Swap Space for Memory (Optional)
         run: |
           sudo fallocate -l 6G /swapfile
@@ -34,9 +29,6 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
           echo '{"builder": {"gc": {"enabled": true}}}' | sudo tee /etc/docker/daemon.json
           sudo service docker restart
-
-      - name: Install GraalVM Native Image
-        run: gu install native-image
 
       - name: Build Quarkus Native Image
         run: |
