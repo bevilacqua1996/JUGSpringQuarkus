@@ -46,9 +46,9 @@ public class DemoSpringSimulation extends Simulation {
     {
         setUp(
                 scn.injectOpen(
-                        rampUsers(5).during(30),  // Increases the load
-                        constantUsersPerSec(10).during(60),  // Keep it stable
-                        rampUsersPerSec(10).to(2).during(30)  // Decreases the load
+                        rampUsers(25).during(120),  // Increases the load
+                        constantUsersPerSec(50).during(120),  // Keep it stable
+                        rampUsersPerSec(50).to(10).during(60)  // Decreases the load
                 )
         ).protocols(http.baseUrl("http://localhost:8080"));
     }

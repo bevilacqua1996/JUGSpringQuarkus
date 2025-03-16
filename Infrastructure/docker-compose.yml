@@ -26,6 +26,16 @@ services:
       - "8080:8080"
     networks:
       - backend
+  
+  quarkus-native-app:
+    image: my-quarkus-native-app:1.0
+    container_name: quarkus-native-app
+    depends_on:
+      - mysql
+    ports:
+      - "8082:8080"
+    networks:
+      - backend
 
   spring-app:
     image: my-spring-app:1.3

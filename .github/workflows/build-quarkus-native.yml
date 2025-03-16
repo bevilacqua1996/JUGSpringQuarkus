@@ -1,0 +1,53 @@
+name: Build Quarkus Native Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-native:
+    runs-on: ubuntu-latest  # Uses a Linux-based runner
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK (GraalVM 23.1.0)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'graalvm'
+          java-version: '21'
+
+      - name: Increase Swap Space for Memory (Optional)
+        run: |
+          sudo fallocate -l 6G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+
+      - name: Set up Docker to Use More Memory
+        run: |
+          sudo sysctl -w vm.max_map_count=262144
+          echo '{"builder": {"gc": {"enabled": true}}}' | sudo tee /etc/docker/daemon.json
+          sudo service docker restart
+
+      - name: Install GraalVM Native Image
+        run: gu install native-image
+
+      - name: Build Quarkus Native Image
+        run: |
+          ./Quarkus-demo/demo/mvnw package -Pnative \
+            -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-21 \
+            -Dquarkus.native.native-image-xmx=6G \
+            -Dquarkus.native.native-image-options="--native-image-threads=2 --no-fallback"
+
+      - name: Upload Native Binary (Optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: quarkus-native-binary
+          path: Quarkus-demo/demo/target/*-runner
+
