@@ -16,6 +16,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Grant execute permissions to Maven Wrapper
+        run: chmod +x ./Quarkus-demo/demo/mvnw
+    
+      - name: Debug Directory Structure
+        run: ls -R
+
       - name: Build Quarkus Native Image
         run: |
           ./Quarkus-demo/demo/mvnw package -Pnative \
