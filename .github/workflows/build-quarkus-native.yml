@@ -21,8 +21,18 @@ jobs:
             source "$HOME/.sdkman/bin/sdkman-init.sh"
             sdk install java 23.0.2-graalce  # Install latest GraalVM (update if needed)
             sdk use java 23.0.2-graalce
-            $GRAALVM_HOME/bin/gu --version
-            gu install native-image
+            export GRAALVM_HOME="$HOME/.sdkman/candidates/java/current"
+            export PATH="$GRAALVM_HOME/bin:$PATH"
+            echo "GRAALVM_HOME=$GRAALVM_HOME" >> $GITHUB_ENV
+            echo "PATH=$PATH" >> $GITHUB_ENV
+
+      - name: Verify GraalVM Installation
+        run: |
+            java -version  # Should show GraalVM
+            which gu        # Should output the path to gu
+            
+      - name: Install Native Image
+        run: gu install native-image
 
       - name: Increase Swap Space for Memory (Optional)
         run: |
