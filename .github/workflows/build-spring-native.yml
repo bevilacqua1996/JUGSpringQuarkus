@@ -34,8 +34,7 @@ jobs:
       - name: Build Native Image
         run: |
             cd Spring-demo/demo/demo
-            ./mvnw -Pnative native:compile \
-            -DskipTests
+            ./mvnw clean package -Pnative -DskipTests
 
       - name: Build Docker Image
         run: |

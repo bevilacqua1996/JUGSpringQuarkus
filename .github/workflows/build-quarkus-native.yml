@@ -18,13 +18,6 @@ jobs:
 
       - name: Grant execute permissions to Maven Wrapper
         run: chmod +x ./Quarkus-demo/demo/mvnw
-    
-      - name: Install Docker
-        run: |
-          curl -fsSL https://get.docker.com | sh  # Install Docker using the official script
-          systemctl enable docker          # Enable Docker to start on boot
-          systemctl start docker           # Start Docker service
-          usermod -aG docker $USER         # Add the user to the Docker group
 
       - name: Build Quarkus Native Image
         run: |
