@@ -10,28 +10,16 @@ on:
 
 jobs:
   build-native:
-    runs-on: ubuntu-latest  # Uses a Linux-based runner
+    runs-on: ubuntu-latest
+    container: quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-21
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install SDKMAN and GraalVM
+      - name: Verify GraalVM
         run: |
-            curl -s "https://get.sdkman.io" | bash
-            source "$HOME/.sdkman/bin/sdkman-init.sh"
-            sdk install java 23.0.2-graalce  # Install latest GraalVM (update if needed)
-            sdk use java 23.0.2-graalce
-            export GRAALVM_HOME="$HOME/.sdkman/candidates/java/current"
-            export PATH="$GRAALVM_HOME/bin:$PATH"
-            echo "GRAALVM_HOME=$GRAALVM_HOME" >> $GITHUB_ENV
-            echo "PATH=$PATH" >> $GITHUB_ENV
-
-      - name: Verify GraalVM Installation
-        run: |
-            java -version  # Should show GraalVM
-
-      - name: Install Native Image
-        run: gu install native-image
+          java -version
+          gu install native-image  # Should work inside this container
 
       - name: Increase Swap Space for Memory (Optional)
         run: |
