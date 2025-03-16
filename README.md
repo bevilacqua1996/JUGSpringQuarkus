@@ -7,7 +7,7 @@ This is a repository to store all documentation and implementation which I have 
 
 In order to build up the project on your machine you must have docker and docker-compose installed. 
 
-(Docker install tutorial)[https://docs.docker.com/engine/install/ubuntu/]
+[Docker install tutorial](https://docs.docker.com/engine/install/ubuntu/)
 
 In order to start up the compose project on your machine, execute this command in the source folder:
 
@@ -17,7 +17,7 @@ Also, in order to build the non-native images you need to execute:
 
 `./mvnw clean package`
 
-This one will build Quarkus or Spring;Boot applications. Then to build the docker image:
+This one will build Quarkus or Spring-Boot applications. Then to build the docker image:
 
 `docker build -t your-image-name:latest .`
 
@@ -27,7 +27,7 @@ For native images, you need a different command to build the application:
 
 This one will build the application as a native java. This one, runs the build process in a specific container that has all the requirements installed already.
 
-**Native Image build strategy in GitHub Actions**
+## Native Image build strategy in GitHub Actions
 
 ![Architecture_practical_part-Native image generation](https://github.com/user-attachments/assets/f702c215-c810-4b11-aaaa-77d0315b2d74)
 

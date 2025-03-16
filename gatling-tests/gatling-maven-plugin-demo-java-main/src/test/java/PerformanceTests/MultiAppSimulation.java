@@ -15,12 +15,12 @@ public class MultiAppSimulation extends Simulation {
     private static final String BASE_URL_4 = "http://localhost:8083/api/demo";
 
     private static final int RAMP_USERS=10;
-    private static final int CONSTANT_USERS=10;
+    private static final int CONSTANT_USERS=15;
     private static final int RAMP_DOWN_USERS=5;
 
-    private static final int RAMP_TIME_SEC=60;
+    private static final int RAMP_TIME_SEC=45;
     private static final int CONSTANT_TIME_SEC=60;
-    private static final int RAMP_DOWN_TIME_SEC=30;
+    private static final int RAMP_DOWN_TIME_SEC=60;
 
     // Scenario 1: API requirements for App 1
     private ScenarioBuilder scnApp1 = scenario("App 1 - Quarkus")
