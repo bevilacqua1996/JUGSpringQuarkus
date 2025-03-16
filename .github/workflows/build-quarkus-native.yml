@@ -10,7 +10,6 @@ on:
 
 jobs:
   build-native:
-    if: '!contains(github.event.commits[0].message, ''[skip build-native]'')'
     runs-on: ubuntu-latest
     container: quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-21
     steps:

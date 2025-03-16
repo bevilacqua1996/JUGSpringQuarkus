@@ -82,7 +82,7 @@
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
-				<version>0.9.9</version> <!-- Check for the latest version -->
+				<version>0.10.6</version> <!-- Check for the latest version -->
 				<executions>
 					<execution>
 						<goals>
