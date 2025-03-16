@@ -29,8 +29,7 @@ jobs:
       - name: Verify GraalVM Installation
         run: |
             java -version  # Should show GraalVM
-            which gu        # Should output the path to gu
-            
+
       - name: Install Native Image
         run: gu install native-image
 
