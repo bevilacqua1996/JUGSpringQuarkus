@@ -16,3 +16,8 @@ scrape_configs:
     metrics_path: "/metrics"
     static_configs:
       - targets: ["quarkus-native-app:8080"]
+
+  - job_name: "spring-native-app"
+    metrics_path: "/actuator/prometheus"
+    static_configs:
+      - targets: ["spring-native-app:8081"]

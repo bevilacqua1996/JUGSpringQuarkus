@@ -36,6 +36,32 @@ services:
       QUARKUS_MICROMETER_BINDER_SYSTEM: true
     ports:
       - "8082:8080"
+    entrypoint: ["./application", "-Dquarkus.http.host=0.0.0.0", "-J-Xmx1g"]
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 1024M   # Hard limit (max memory usage)
+  
+  spring-native-app:
+    image: bevilacqua96/my-spring-native-app:latest
+    container_name: spring-native-app
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: 50
+      SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE: 5
+      SPRING_DATASOURCE_HIKARI_IDLE_TIMEOUT: 30000
+      SPRING_DATASOURCE_HIKARI_MAX_LIFETIME: 1800000
+      SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT: 5000
+    ports:
+      - "8083:8081"
+    entrypoint: ["./application", "-J-Xmx1g"]
     networks:
       - backend
     deploy:
