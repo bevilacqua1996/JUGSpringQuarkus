@@ -18,17 +18,17 @@ jobs:
 
       - name: Increase Swap Space for Memory (Optional)
         run: |
-          sudo fallocate -l 6G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
+          fallocate -l 6G /swapfile
+          chmod 600 /swapfile
+          mkswap /swapfile
+          swapon /swapfile
           free -h
 
       - name: Set up Docker to Use More Memory
         run: |
-          sudo sysctl -w vm.max_map_count=262144
+          sysctl -w vm.max_map_count=262144
           echo '{"builder": {"gc": {"enabled": true}}}' | sudo tee /etc/docker/daemon.json
-          sudo service docker restart
+          service docker restart
 
       - name: Build Quarkus Native Image
         run: |
