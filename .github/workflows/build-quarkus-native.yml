@@ -21,9 +21,10 @@ jobs:
     
       - name: Install Docker
         run: |
-          apt-get install -y docker
-          service docker start
-          usermod -aG docker $USER
+          curl -fsSL https://get.docker.com | sh  # Install Docker using the official script
+          systemctl enable docker          # Enable Docker to start on boot
+          systemctl start docker           # Start Docker service
+          usermod -aG docker $USER         # Add the user to the Docker group
 
       - name: Build Quarkus Native Image
         run: |
