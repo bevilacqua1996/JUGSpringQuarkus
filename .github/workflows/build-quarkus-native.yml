@@ -38,11 +38,23 @@ jobs:
           name: quarkus-native-binary
           path: Quarkus-demo/demo/target/*-runner
 
-      # Docker build and upload
-      - name: Build Docker Image
+  build-docker-image:
+    runs-on: ubuntu-latest
+    needs: build-native  # This ensures it waits for the first job to complete
+
+    steps:
+      - name: Download Native Binary from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: quarkus-native-binary
+          path: ./native-binary
+
+      - name: Build Docker Image using a better base image
         run: |
-          cd ./Quarkus-demo/demo/
-          docker build -t my-docker-repo/my-quarkus-native-app:latest -f src/main/docker/Dockerfile.native .
+          # Build the Docker image using a more suitable base image (e.g., Alpine or distroless)
+          mkdir Spring-demo/demo/demo/target
+          cp ./native-binary Spring-demo/demo/demo/target/
+          docker build -t my-docker-repo/my-quarkus-native-app:latest -f Spring-demo/demo/demo/src/main/docker/Dockerfile.native .
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
