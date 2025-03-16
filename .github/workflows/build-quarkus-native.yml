@@ -34,3 +34,19 @@ jobs:
           name: quarkus-native-binary
           path: Quarkus-demo/demo/target/*-runner
 
+      # Docker build and upload
+      - name: Build Docker Image
+        run: |
+          cd ./Quarkus-demo/demo/
+          docker build -t my-docker-repo/my-quarkus-native-app:latest -f src/main/docker/Dockerfile.native .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker Image
+        run: |
+          docker push my-docker-repo/my-quarkus-native-app:latest
+
