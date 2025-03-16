@@ -27,6 +27,9 @@ jobs:
             echo "JAVA_HOME: $JAVA_HOME"
             java --version
             native-image --version
+    
+      - name: Grant execute permissions to Maven Wrapper
+        run: chmod +x ./Spring-demo/demo/demo/mvnw
 
       - name: Build Native Image
         run: |
