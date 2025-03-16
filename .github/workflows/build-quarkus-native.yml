@@ -15,11 +15,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK (GraalVM 23.1.0)
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'graalvm'
-          java-version: '21'
+      - name: Install SDKMAN and GraalVM
+        run: |
+            curl -s "https://get.sdkman.io" | bash
+            source "$HOME/.sdkman/bin/sdkman-init.sh"
+            sdk install java 23.0.2-graalce  # Install latest GraalVM (update if needed)
+            sdk use java 23.0.2-graalce
+            gu install native-image
 
       - name: Increase Swap Space for Memory (Optional)
         run: |
