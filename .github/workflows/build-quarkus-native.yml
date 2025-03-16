@@ -19,8 +19,11 @@ jobs:
       - name: Grant execute permissions to Maven Wrapper
         run: chmod +x ./Quarkus-demo/demo/mvnw
     
-      - name: Debug Directory Structure
-        run: ls -R
+      - name: Install Docker
+        run: |
+          yum install -y docker
+          service docker start
+          usermod -aG docker $USER
 
       - name: Build Quarkus Native Image
         run: |
