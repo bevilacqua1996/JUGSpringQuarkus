@@ -28,7 +28,7 @@ services:
       - backend
   
   quarkus-native-app:
-    image: my-quarkus-native-app:1.0
+    image: bevilacqua96/my-quarkus-native-app:latest
     container_name: quarkus-native-app
     depends_on:
       - mysql
