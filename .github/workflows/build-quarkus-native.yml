@@ -21,6 +21,7 @@ jobs:
             source "$HOME/.sdkman/bin/sdkman-init.sh"
             sdk install java 23.0.2-graalce  # Install latest GraalVM (update if needed)
             sdk use java 23.0.2-graalce
+            $GRAALVM_HOME/bin/gu --version
             gu install native-image
 
       - name: Increase Swap Space for Memory (Optional)
