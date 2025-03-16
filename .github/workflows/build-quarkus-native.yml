@@ -36,6 +36,10 @@ jobs:
     needs: build-native  # This ensures it waits for the first job to complete
 
     steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Download Native Binary from previous job
         uses: actions/download-artifact@v4
         with:
@@ -47,7 +51,7 @@ jobs:
           # Build the Docker image using a more suitable base image (e.g., Alpine or distroless)
           cd Quarkus-demo/demo/
           mkdir target
-          cp ./native-binary ./target/
+          cp ../../native-binary ./target/
           docker build -t my-docker-repo/my-quarkus-native-app:latest -f Spring-demo/demo/demo/src/main/docker/Dockerfile.native .
 
       - name: Login to Docker Hub
