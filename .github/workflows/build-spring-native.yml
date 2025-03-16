@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: spring-native-binary
-          path: Spring-demo/demo/demo/target/*-runner
+          path: Spring-demo/demo/demo/target/Spring-demo
 
   build-docker-image:
     runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: spring-native-binary
-          path: ./native-binary
+          path: ./Spring-Demo
         
 
       - name: Build Docker Image using a better base image
@@ -63,7 +63,7 @@ jobs:
           # Build the Docker image using a more suitable base image (e.g., Alpine or distroless)
           cd Spring-demo/demo/demo/
           mkdir target
-          cp -r ../../native-binary ./target/
+          cp -r ../../Spring-Demo ./target/
           docker build -t my-docker-repo/my-spring-native-app:latest -f Dockerfile.native .
   
       - name: Login to Docker Hub

@@ -44,14 +44,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: quarkus-native-binary
-          path: ./native-binary
+          path: ./quarkus-binary-runner
 
       - name: Build Docker Image using a better base image
         run: |
           # Build the Docker image using a more suitable base image (e.g., Alpine or distroless)
           cd Quarkus-demo/demo/
           mkdir target
-          cp -r ../../native-binary ./target/
+          cp -r ../../quarkus-binary-runner ./target/
           docker build -t my-docker-repo/my-quarkus-native-app:latest -f src/main/docker/Dockerfile.native .
 
       - name: Login to Docker Hub
