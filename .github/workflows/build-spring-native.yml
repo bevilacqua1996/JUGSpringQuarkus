@@ -1,0 +1,41 @@
+name: Build Spring Boot Native Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-native:
+    runs-on: ubuntu-latest  # Using Linux for GraalVM
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22'  # Use latest GraalVM version
+          java-version: '21'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Native Image
+        run: |
+            cd Spring-demo/demo/demo
+            ./mvnw -Pnative native:compile \
+            -DskipTests
+
+      - name: Build Docker Image
+        run: |
+            cd Spring-demo/demo/demo
+            docker build -t my-spring-boot-native-app .
+      
+      - name: Push Docker Image
+        if: success()
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker tag my-spring-boot-native-app my-docker-repo/my-spring-boot-native-app:latest
+          docker push my-docker-repo/my-spring-boot-native-app:latest

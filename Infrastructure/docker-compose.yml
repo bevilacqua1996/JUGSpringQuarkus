@@ -32,10 +32,16 @@ services:
     container_name: quarkus-native-app
     depends_on:
       - mysql
+    environment:
+      QUARKUS_MICROMETER_BINDER_SYSTEM: true
     ports:
       - "8082:8080"
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          memory: 1024M   # Hard limit (max memory usage)
 
   spring-app:
     image: my-spring-app:1.3
